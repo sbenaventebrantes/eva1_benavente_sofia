@@ -61,7 +61,7 @@ The backend is responsible for:
 - interacting with the database
 - returning structured JSON responses
 
-## How to run the proyect
+## How to run the project
 
 Use: php artisan serve 
 
