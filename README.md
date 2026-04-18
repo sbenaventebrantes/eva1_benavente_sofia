@@ -84,11 +84,21 @@ Schema::create('clients', function (Blueprint $table) {
     $table->timestamps();
 });
 ```
+Environment to use to connect with database
+
+```php
+DB_CONNECTION={{db_connection}}
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE={{db_database}}
+DB_USERNAME={{db_username}}
+DB_PASSWORD={{db_password}}
+```
 
 ### Evidence
 
 
-![Database evidence](docs/images/database.png)
+![Database evidence](docs/images/data-base.png)
 
 
 ## API
