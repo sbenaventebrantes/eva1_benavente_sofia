@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: laravel_app
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./.docker/apache.conf:/etc/apache2/sites-available/000-default.conf
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: laravel_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: db-fintech
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_USER: root
+      MYSQL_PASSWORD: docker
+    ports:
+      - "3307:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:

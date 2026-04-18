@@ -61,6 +61,14 @@ The backend is responsible for:
 - interacting with the database
 - returning structured JSON responses
 
+## How to run the proyect
+
+Use: php artisan serve 
+
+## How to run migration
+
+Use: php artisan migrate
+
 ## Database
 
 MySQL was used as the database management system.
@@ -122,8 +130,9 @@ Expected response: `200 OK`
 
 ![Health endpoint evidence](docs/images/health-endpoint.png)
 
+### Added bonus to verified consistency with data base table
 
-### Get Clients
+### 1) Get Clients
 
 #### GET `/api/clients`
 
@@ -151,7 +160,7 @@ Returns all registered clients.
 
 
 
-### Create Client
+### 2) Create Client
 
 #### POST `/api/clients`
 
