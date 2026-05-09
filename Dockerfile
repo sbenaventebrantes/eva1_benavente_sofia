@@ -25,4 +25,23 @@ RUN cp /var/www/html/.docker/laravel-vhost.conf /etc/apache2/sites-available/000
 
 RUN chown -R www-data:www-data /var/www/html
 
+# Instalar dependencias PHP
+RUN composer install --no-dev --optimize-autoloader
+
+# Crear directorios de cache y storage con permisos correctos
+RUN mkdir -p /var/www/html/bootstrap/cache
+RUN mkdir -p /var/www/html/storage/logs
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/bootstrap/cache /var/www/html/storage
+
+# Instalar netcat para verificar si MySQL está listo
+RUN apt-get install -y netcat-openbsd
+
+# Copiar script de entrada
+COPY .docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Configurar punto de entrada
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
 EXPOSE 80
