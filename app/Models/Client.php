@@ -17,6 +17,16 @@ class Client extends Model
 		'date_of_birth',
 	];
 
+	protected $hidden = [
+		'first_name',
+		'last_name',
+		'dni',
+		'phone_number',
+		'date_of_birth',
+		'created_at',
+		'updated_at',
+	];
+
 	protected $appends = ['rut', 'nombre', 'apellido', 'telefono'];
 
 	/**
@@ -42,5 +52,6 @@ class Client extends Model
 		return $this->attributes['phone_number'] ?? null;
 	}
 }
+
 
 

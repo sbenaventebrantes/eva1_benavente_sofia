@@ -21,6 +21,15 @@ class ClientController extends Controller
             'apellido' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:clients,email'],
             'telefono' => ['nullable', 'string', 'max:255', 'unique:clients,phone_number'],
+        ], [
+            'rut.required' => 'El rut es requerido',
+            'rut.unique' => 'El rut ya ha sido registrado',
+            'nombre.required' => 'El nombre es requerido',
+            'apellido.required' => 'El apellido es requerido',
+            'email.required' => 'El email es requerido',
+            'email.email' => 'El email debe ser válido',
+            'email.unique' => 'El email ya ha sido registrado',
+            'telefono.unique' => 'El teléfono ya ha sido registrado',
         ]);
 
         // Mapear de español a inglés para guardar en BD
