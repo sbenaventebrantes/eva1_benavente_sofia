@@ -15,3 +15,4 @@ trait CreatesApplication
         return $app;
     }
 }
+

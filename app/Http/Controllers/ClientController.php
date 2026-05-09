@@ -44,3 +44,4 @@ class ClientController extends Controller
         return response()->json($client, 200);
     }
 }
+

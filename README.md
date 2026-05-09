@@ -130,3 +130,4 @@ Incluye casos de:
 - El proyecto está preparado para ejecutarse con Docker aunque no exista un `.env` local.
 - Las variables críticas están definidas en `docker-compose.yml`.
 - Si cambias la BD o el esquema, vuelve a correr las migrations.
+

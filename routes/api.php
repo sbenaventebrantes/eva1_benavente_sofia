@@ -13,3 +13,4 @@ Route::prefix('v1')->group(function () {
     Route::post('/clients', [ClientController::class, 'store']);
     Route::get('/clients/{id}', [ClientController::class, 'show']);
 });
+

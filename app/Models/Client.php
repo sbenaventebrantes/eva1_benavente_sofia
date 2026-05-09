@@ -16,3 +16,4 @@ class Client extends Model
 		'telefono',
 	];
 }
+
