@@ -9,11 +9,38 @@ class Client extends Model
 	protected $table = 'clients';
 
 	protected $fillable = [
-		'rut',
-		'nombre',
-		'apellido',
+		'first_name',
+		'last_name',
+		'dni',
 		'email',
-		'telefono',
+		'phone_number',
+		'date_of_birth',
 	];
+
+	protected $appends = ['rut', 'nombre', 'apellido', 'telefono'];
+
+	/**
+	 * Accessors para mapear campos en inglés a español en las respuestas
+	 */
+	public function getRutAttribute()
+	{
+		return $this->attributes['dni'] ?? null;
+	}
+
+	public function getNombreAttribute()
+	{
+		return $this->attributes['first_name'] ?? null;
+	}
+
+	public function getApellidoAttribute()
+	{
+		return $this->attributes['last_name'] ?? null;
+	}
+
+	public function getTelefonoAttribute()
+	{
+		return $this->attributes['phone_number'] ?? null;
+	}
 }
+
 
