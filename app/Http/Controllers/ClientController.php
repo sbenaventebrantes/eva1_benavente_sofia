@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Rules\ValidRut;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -10,20 +11,31 @@ class ClientController extends Controller
 {
     public function index(): JsonResponse
     {
-        return response()->json(Client::all(), 200);
+        $clients = Client::all();
+        return response()->json($clients, 200);
     }
 
     public function store(Request $request): JsonResponse
     {
+        // Validar según los nombres que viene en Postman (español)
         $validated = $request->validate([
-            'rut' => ['required', 'string', 'max:255', 'unique:clients,rut'],
+            'rut' => ['required', 'string', 'max:255', 'unique:clients,dni', new ValidRut()],
             'nombre' => ['required', 'string', 'max:255'],
             'apellido' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:clients,email'],
-            'telefono' => ['nullable', 'string', 'max:255', 'unique:clients,telefono'],
+            'telefono' => ['nullable', 'string', 'max:255', 'unique:clients,phone_number'],
         ]);
 
-        $client = Client::create($validated);
+        // Mapear de español a inglés para guardar en BD
+        $data = [
+            'first_name' => $validated['nombre'],
+            'last_name' => $validated['apellido'],
+            'dni' => $validated['rut'],
+            'email' => $validated['email'],
+            'phone_number' => $validated['telefono'] ?? null,
+        ];
+
+        $client = Client::create($data);
 
         return response()->json([
             'message' => 'Cliente creado correctamente',
@@ -44,4 +56,6 @@ class ClientController extends Controller
         return response()->json($client, 200);
     }
 }
+
+
 
