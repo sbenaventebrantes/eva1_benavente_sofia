@@ -8,7 +8,21 @@ services:
       - "8000:80"
     volumes:
       - .:/var/www/html
-      - ./.docker/apache.conf:/etc/apache2/sites-available/000-default.conf
+    environment:
+      APP_NAME: Laravel
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      APP_KEY: base64:tZc+c6xa3XqxzO1HGUyuKD0NFb9AFVPbjhlaI/2ifGE=
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: db-fintech
+      DB_USERNAME: root
+      DB_PASSWORD: docker
+      CACHE_STORE: file
+      SESSION_DRIVER: file
+      QUEUE_CONNECTION: sync
     depends_on:
       - db
 
@@ -19,8 +33,6 @@ services:
     environment:
       MYSQL_DATABASE: db-fintech
       MYSQL_ROOT_PASSWORD: docker
-      MYSQL_USER: root
-      MYSQL_PASSWORD: docker
     ports:
       - "3307:3306"
     volumes:

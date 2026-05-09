@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('clients', function (Blueprint $table) {
-            $table->increments('client_id');
-            $table->string('first_name', 50);
-            $table->string('last_name', 50);
-            $table->string('email', 100)->unique();
-            $table->string('phone_number', 20)->nullable();
+            $table->id();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('dni')->unique();
+            $table->string('email')->unique();
+            $table->string('phone_number')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamps();
         });
     }
 

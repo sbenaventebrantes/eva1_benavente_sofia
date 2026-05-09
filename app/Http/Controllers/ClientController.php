@@ -10,23 +10,37 @@ class ClientController extends Controller
 {
     public function index(): JsonResponse
     {
-        $clients = Client::all();
-
-        return response()->json($clients, 200);
+        return response()->json(Client::all(), 200);
     }
 
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'first_name' => 'required|string|max:50',
-            'last_name' => 'required|string|max:50',
-            'email' => 'required|email|unique:clients,email',
-            'phone_number' => 'nullable|string|max:20',
-            'date_of_birth' => 'nullable|date',
+            'rut' => ['required', 'string', 'max:255', 'unique:clients,rut'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'apellido' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:clients,email'],
+            'telefono' => ['nullable', 'string', 'max:255', 'unique:clients,telefono'],
         ]);
 
         $client = Client::create($validated);
 
-        return response()->json($client, 201);
+        return response()->json([
+            'message' => 'Cliente creado correctamente',
+            'data' => $client,
+        ], 201);
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        $client = Client::find($id);
+
+        if (! $client) {
+            return response()->json([
+                'message' => 'Cliente no encontrado',
+            ], 404);
+        }
+
+        return response()->json($client, 200);
     }
 }
